@@ -1,4 +1,4 @@
-package connection
+package middleware
 
 import (
 	"context"
@@ -21,7 +21,7 @@ const collName = "planet"
 // collection object/instance
 var collection *mongo.Collection
 
-// create connection with mongo db
+// init - create connection with mongo db
 func init() {
 
 	// Set client options
@@ -47,4 +47,5 @@ func init() {
 	collection = client.Database(dbName).Collection(collName)
 
 	fmt.Println("Collection instance created!")
+
 }
