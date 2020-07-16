@@ -9,6 +9,7 @@ import (
 	"reflect"
 
 	"../models"
+	"github.com/gorilla/mux"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -57,8 +58,8 @@ func init() {
 
 }
 
-// Add creates the 'add' route to register the planet info, executes on call
-func Add(writer http.ResponseWriter, r *http.Request) {
+// Create , creates the route to register the planet info, executes on call
+func Create(writer http.ResponseWriter, r *http.Request) {
 	writer.Header().Set("Context-Type", "application/x-www-form-urlencoded")
 	writer.Header().Set("Access-Control-Allow-Origin", "*")
 	writer.Header().Set("Access-Control-Allow-Methods", "POST")
@@ -69,13 +70,13 @@ func Add(writer http.ResponseWriter, r *http.Request) {
 
 	fmt.Println(planet, r.Body)
 
-	addPlanet(planet)
+	create(planet)
 
 	json.NewEncoder(writer).Encode(planet)
 }
 
 // Insert the planet data into mongo db
-func addPlanet(planet models.Planet) {
+func create(planet models.Planet) {
 	insertResult, err := collection.InsertOne(context.Background(), planet)
 
 	if err != nil {
@@ -118,4 +119,29 @@ func indexAll() []primitive.M {
 
 	cur.Close(context.Background())
 	return results
+}
+
+// DeleteByID , this is the delete function route
+func DeleteByID(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	params := mux.Vars(r)
+	deleteByID(params["id"])
+	json.NewEncoder(w).Encode(params["id"])
+
+}
+
+// delete planet by ID
+func deleteByID(ID string) {
+	fmt.Println(ID)
+	id, _ := primitive.ObjectIDFromHex(ID)
+	filter := bson.M{"_id": id}
+	d, err := collection.DeleteOne(context.Background(), filter)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Deleted Planet", d.DeletedCount)
 }
