@@ -6,9 +6,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"reflect"
 
 	"../models"
 
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -80,4 +83,39 @@ func addPlanet(planet models.Planet) {
 	}
 
 	fmt.Println("New Planet Added", insertResult.InsertedID)
+}
+
+// IndexAll builds the index route and execute on call
+func IndexAll(writer http.ResponseWriter, r *http.Request) {
+	writer.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	writer.Header().Set("Access-Control-Allow-Origin", "*")
+	payload := indexAll()
+	json.NewEncoder(writer).Encode(payload)
+}
+
+// indexAll - gets all the planets registered in mongo db
+func indexAll() []primitive.M {
+	cur, err := collection.Find(context.Background(), bson.D{{}})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var results []primitive.M
+	for cur.Next(context.Background()) {
+		var result bson.M
+		e := cur.Decode(&result)
+		if e != nil {
+			log.Fatal(e)
+		}
+		fmt.Println("cur..>", cur, "result", result, "type of result", reflect.TypeOf(result), reflect.TypeOf(result["_id"]))
+		results = append(results, result)
+
+	}
+
+	if err := cur.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	cur.Close(context.Background())
+	return results
 }
