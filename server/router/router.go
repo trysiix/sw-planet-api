@@ -10,8 +10,9 @@ func Router() *mux.Router {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/api/add", middleware.Create).Methods("POST", "OPTIONS")
-	router.HandleFunc("/api/index", middleware.IndexAll).Methods("GET", "OPTIONS")
+	router.HandleFunc("/planet/create", middleware.Create).Methods("POST", "OPTIONS")
+	router.HandleFunc("/planet/index", middleware.IndexAll).Methods("GET", "OPTIONS")
+	router.HandleFunc("/planet/delete/{id}", middleware.DeleteByID).Methods("DELETE", "OPTIONS")
 
 	return router
 }
