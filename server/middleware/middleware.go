@@ -122,6 +122,39 @@ func indexAll() []primitive.M {
 	return results
 }
 
+// IndexByID builds the index route and execute on call
+func IndexByID(writer http.ResponseWriter, r *http.Request) {
+	writer.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	writer.Header().Set("Access-Control-Allow-Origin", "*")
+	writer.Header().Set("Access-Control-Allow-Methods", "GET")
+	params := mux.Vars(r)
+
+	fmt.Println(params)
+	payload := indexByID(params["id"])
+	json.NewEncoder(writer).Encode(payload)
+}
+
+// indexByID - gets all the planets registered in mongo db
+func indexByID(item string) interface{} {
+
+	docID, err := primitive.ObjectIDFromHex(item)
+
+	result := models.Planet{}
+
+	filter := bson.M{"_id": docID}
+
+	err = collection.FindOne(context.Background(), filter).Decode(&result)
+
+	fmt.Println(result)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return result
+
+}
+
 // DeleteByID , this is the delete function route
 func DeleteByID(writer http.ResponseWriter, r *http.Request) {
 	writer.Header().Set("Context-Type", "application/x-www-form-urlencoded")
