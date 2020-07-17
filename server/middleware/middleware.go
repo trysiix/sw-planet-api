@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"reflect"
 
 	"../models"
 	"github.com/gorilla/mux"
@@ -90,13 +89,17 @@ func create(planet models.Planet) {
 func IndexAll(writer http.ResponseWriter, r *http.Request) {
 	writer.Header().Set("Context-Type", "application/x-www-form-urlencoded")
 	writer.Header().Set("Access-Control-Allow-Origin", "*")
+	writer.Header().Set("Access-Control-Allow-Methods", "GET")
+
 	payload := indexAll()
+
 	json.NewEncoder(writer).Encode(payload)
 }
 
 // indexAll - gets all the planets registered in mongo db
 func indexAll() []primitive.M {
 	cur, err := collection.Find(context.Background(), bson.D{{}})
+
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -108,9 +111,7 @@ func indexAll() []primitive.M {
 		if e != nil {
 			log.Fatal(e)
 		}
-		fmt.Println("cur..>", cur, "result", result, "type of result", reflect.TypeOf(result), reflect.TypeOf(result["_id"]))
 		results = append(results, result)
-
 	}
 
 	if err := cur.Err(); err != nil {
@@ -122,14 +123,14 @@ func indexAll() []primitive.M {
 }
 
 // DeleteByID , this is the delete function route
-func DeleteByID(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "DELETE")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+func DeleteByID(writer http.ResponseWriter, r *http.Request) {
+	writer.Header().Set("Context-Type", "application/x-www-form-urlencoded")
+	writer.Header().Set("Access-Control-Allow-Origin", "*")
+	writer.Header().Set("Access-Control-Allow-Methods", "DELETE")
+	writer.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	params := mux.Vars(r)
 	deleteByID(params["id"])
-	json.NewEncoder(w).Encode(params["id"])
+	json.NewEncoder(writer).Encode(params["id"])
 
 }
 
