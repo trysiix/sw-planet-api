@@ -25,7 +25,7 @@ const (
 
 var collection *mongo.Collection
 
-// init - creates the connection with mongo db
+// init - Connects to mongo db and builds instance of collection
 func init() {
 
 	clientOptions := options.Client().ApplyURI(connectionString)
@@ -45,7 +45,7 @@ func init() {
 
 }
 
-// Create , creates the route to register the planet info, executes on call
+// Create - Register the planet data
 func Create(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -67,7 +67,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(data)
 }
 
-// IndexAll builds the index route and execute on call
+// IndexAll - Index all the planets registerd
 func IndexAll(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -98,7 +98,7 @@ func IndexAll(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(results)
 }
 
-// IndexByID builds the index route and execute on call
+// IndexByID - Indexes a registered planet by the provided id
 func IndexByID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -121,7 +121,7 @@ func IndexByID(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(result)
 }
 
-// DeleteByID , this is the delete function route
+// DeleteByID - Deletes a planet document by the provided id
 func DeleteByID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
