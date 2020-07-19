@@ -11,10 +11,10 @@ import (
 
 const sniffLen = 512
 
-// GetPlanetsData test
-func GetPlanetsData(Planet string) []byte {
+// GetPlanetsData makes a request on the swapi by sKey,search key
+func GetPlanetsData(sKey string) []byte {
 
-	url := "http://swapi.dev/api/planets/?search=" + Planet
+	url := "http://swapi.dev/api/planets/?search=" + sKey
 
 	resp, err := http.Get(url)
 
