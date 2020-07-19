@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 
+	"../controllers"
 	"../models"
 	"github.com/gorilla/mux"
 
@@ -17,18 +18,17 @@ import (
 )
 
 // DB connection string
-const connectionString = "mongodb+srv://admin:QUTjF2P68cZADUx0@c-zero.aju4h.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://admin:fftddo90Sk5VPuRb@cluster0.aju4h.gcp.mongodb.net/Skyriver?retryWrites=true&w=majority"
 
 // Database Name
 const dbName = "Skyriver"
 
 // Collection name
-const collName = "planet"
+const collName = "planets"
 
-// collection object/instance
 var collection *mongo.Collection
 
-// init - create connection with mongo db
+// init - creates the connection with mongo db
 func init() {
 
 	// Set client options
@@ -64,25 +64,23 @@ func Create(writer http.ResponseWriter, r *http.Request) {
 	writer.Header().Set("Access-Control-Allow-Methods", "POST")
 	writer.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
-	var planet models.Planet
-	_ = json.NewDecoder(r.Body).Decode(&planet)
+	var data models.Planet
+	_ = json.NewDecoder(r.Body).Decode(&data)
 
-	fmt.Println(planet, r.Body)
+	params := &data
 
-	create(planet)
+	data.NumberOfAppearances = controllers.GetNumOfAppearances(params.Name)
 
-	json.NewEncoder(writer).Encode(planet)
-}
+	fmt.Println(data)
 
-// Insert the planet data into mongo db
-func create(planet models.Planet) {
-	insertResult, err := collection.InsertOne(context.Background(), planet)
+	insertResult, err := collection.InsertOne(context.Background(), data)
+	fmt.Println("Planet Save", insertResult)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println("New Planet Added", insertResult.InsertedID)
+	json.NewEncoder(writer).Encode(data)
 }
 
 // IndexAll builds the index route and execute on call
@@ -127,6 +125,7 @@ func IndexByID(writer http.ResponseWriter, r *http.Request) {
 	writer.Header().Set("Context-Type", "application/x-www-form-urlencoded")
 	writer.Header().Set("Access-Control-Allow-Origin", "*")
 	writer.Header().Set("Access-Control-Allow-Methods", "GET")
+
 	params := mux.Vars(r)
 
 	fmt.Println(params)
@@ -161,10 +160,12 @@ func DeleteByID(writer http.ResponseWriter, r *http.Request) {
 	writer.Header().Set("Access-Control-Allow-Origin", "*")
 	writer.Header().Set("Access-Control-Allow-Methods", "DELETE")
 	writer.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	params := mux.Vars(r)
-	deleteByID(params["id"])
-	json.NewEncoder(writer).Encode(params["id"])
 
+	params := mux.Vars(r)
+
+	deleteByID(params["id"])
+
+	json.NewEncoder(writer).Encode(params["id"])
 }
 
 // delete planet by ID
@@ -173,6 +174,7 @@ func deleteByID(ID string) {
 	id, _ := primitive.ObjectIDFromHex(ID)
 	filter := bson.M{"_id": id}
 	d, err := collection.DeleteOne(context.Background(), filter)
+
 	if err != nil {
 		log.Fatal(err)
 	}
