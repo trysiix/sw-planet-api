@@ -59,14 +59,19 @@ func Create(w http.ResponseWriter, r *http.Request) {
 	var data models.Planet
 	_ = json.NewDecoder(r.Body).Decode(&data)
 	params := &data
-	data.NumberOfAppearances = controllers.GetNumOfAppearances(params.Name)
-	_, err := collection.InsertOne(context.Background(), data)
+	if len(params.Name) > 0 && len(params.Terrain) > 0 && len(params.Weather) > 0 {
+		fmt.Println(params)
+		data.NumberOfAppearances = controllers.GetNumOfAppearances(params.Name)
+		_, err := collection.InsertOne(context.Background(), data)
 
-	if err != nil {
-		log.Fatal(err)
+		if err != nil {
+			log.Fatal(err)
+		}
+		json.NewEncoder(w).Encode(data)
+	} else {
+		alert := []byte("Fields incorrectly filled")
+		w.Write(alert)
 	}
-
-	json.NewEncoder(w).Encode(data)
 }
 
 // Index - Index the planets by request, with filters or without
