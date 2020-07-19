@@ -16,11 +16,14 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-//Declaring mongo db settings to connect
+//Declaring control consts
 const (
 	connectionString = "mongodb+srv://admin:fftddo90Sk5VPuRb@cluster0.aju4h.gcp.mongodb.net/Skyriver?retryWrites=true&w=majority"
 	dbName           = "Skyriver"
 	collName         = "planets"
+	AllowedOrigin    = "Access-Control-Allow-Origin"
+	AllowedMethods   = "Access-Control-Allow-Methods"
+	AllowedHeaders   = "Access-Control-Allow-Headers"
 )
 
 var collection *mongo.Collection
@@ -48,9 +51,9 @@ func init() {
 // Create - Register the planet data
 func Create(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "POST")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set(AllowedOrigin, "*")
+	w.Header().Set(AllowedMethods, "POST")
+	w.Header().Set(AllowedHeaders, "Content-Type")
 
 	var data models.Planet
 	_ = json.NewDecoder(r.Body).Decode(&data)
@@ -70,8 +73,8 @@ func Create(w http.ResponseWriter, r *http.Request) {
 // IndexAll - Index all the planets registerd
 func IndexAll(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET")
+	w.Header().Set(AllowedOrigin, "*")
+	w.Header().Set(AllowedMethods, "GET")
 
 	cur, err := collection.Find(context.Background(), bson.D{{}})
 
@@ -101,8 +104,8 @@ func IndexAll(w http.ResponseWriter, r *http.Request) {
 // IndexByID - Indexes a registered planet by the provided id
 func IndexByID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET")
+	w.Header().Set(AllowedOrigin, "*")
+	w.Header().Set(AllowedMethods, "GET")
 
 	params := mux.Vars(r)
 
@@ -124,9 +127,9 @@ func IndexByID(w http.ResponseWriter, r *http.Request) {
 // DeleteByID - Deletes a planet document by the provided id
 func DeleteByID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "DELETE")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set(AllowedOrigin, "*")
+	w.Header().Set(AllowedMethods, "DELETE")
+	w.Header().Set(AllowedHeaders, "Content-Type")
 
 	params := mux.Vars(r)
 	id, _ := primitive.ObjectIDFromHex(params["id"])
