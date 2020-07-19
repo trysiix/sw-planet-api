@@ -13,9 +13,9 @@ type Planet struct {
 
 // Swapi - structure to handle swapi requested data
 type Swapi struct {
-	Count    int32     `json:"count,omitempty"`
-	Next     int32     `json:"next,omitempty"`
-	Previous int32     `json:"previous,omitempty"`
+	Count    int       `json:"count,omitempty"`
+	Next     int       `json:"next,omitempty"`
+	Previous int       `json:"previous,omitempty"`
 	Results  []Results `json:"results,omitempty"`
 }
 

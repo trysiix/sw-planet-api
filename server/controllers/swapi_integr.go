@@ -30,12 +30,12 @@ func GetPlanetsData(sKey string) []byte {
 
 // GetNumOfAppearances this func gets the number of appearances in films
 func GetNumOfAppearances(Planet string) int {
-
 	var data models.Swapi
-
 	jsonStr := string(GetPlanetsData(Planet))
 	json.Unmarshal([]byte(jsonStr), &data)
-	numOfAppearances := len(data.Results[0].FilmURLs)
 
-	return numOfAppearances
+	if data.Count > 0 {
+		return len(data.Results[0].FilmURLs)
+	}
+	return data.Count
 }
