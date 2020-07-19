@@ -1,0 +1,56 @@
+.new-planet {
+    width: 100%;
+    max-width: 900px;
+    height: 100vh;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+
+.new-planet .content {
+    width: 100%;
+    padding: 50px;
+    background: #f0f0f5;
+    box-shadow: 0 0 100px rgba(55, 39, 199, 0.808);
+    border-radius: 9px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #b3b3b488;
+}
+
+.new-planet .content section {
+    width: 100%;
+    max-width: 380px;
+}
+
+.new-planet .content section h1 {
+    margin: 64px 0 32px;
+    font-size: 32px;
+}
+
+.new-planet .content section p {
+    font-size: 18px;
+    color: #737380;
+    line-height: 32px;
+}
+
+.new-planet .content form {
+    width: 100%;
+    max-width: 450px;
+}
+
+
+.new-planet .content form img {
+    display: flex;
+    margin-left: 40px ;
+    width: 200px;
+}
+
+.new-planet .content form input,
+.new-planet .content form textarea {
+    margin-top: 5px;
+}
