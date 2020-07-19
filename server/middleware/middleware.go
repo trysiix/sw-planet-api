@@ -76,47 +76,34 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set(AllowedMethods, "GET")
 
 	keys := r.URL.Query()
+	payload := []primitive.M{}
 	for fName, fValue := range keys {
 		if len(fName) > 0 && len(fValue[0]) > 0 {
-			payload := indexByFilter(fName, fValue[0])
-			json.NewEncoder(w).Encode(payload)
+			payload = getDocuments(fName, fValue[0])
+
 		} else {
 			alert := []byte("Invalid Filter, Ex: /api/planet?name=Naboo")
 			w.Write(alert)
+			return
 		}
-		return
 	}
 
-	payload := indexAll()
+	if len(payload) <= 0 {
+		payload = getDocuments("", "")
+	}
 
 	json.NewEncoder(w).Encode(payload)
 }
-func indexByFilter(fName string, fValue string) interface{} {
-	filter := bson.M{fName: fValue}
+
+// getDocument - gets all the planets registered
+func getDocuments(fName string, fValue string) []primitive.M {
+	filter := bson.M{}
+
+	if len(fName) > 0 && len(fValue) > 0 {
+		filter = bson.M{fName: fValue}
+	}
+
 	cur, err := collection.Find(context.Background(), filter)
-	fmt.Println(cur)
-
-	var result models.Planet
-
-	for cur.Next(context.Background()) {
-		if err := cur.Decode(&result); err != nil {
-			log.Fatal("ERROR: ", err)
-		}
-
-		fmt.Printf("\nMongoFields: %+v\n", result)
-	}
-	cur.Close(context.Background())
-
-	if err != nil {
-		fmt.Println("Error on indexing by filter, Error:", err)
-	}
-
-	return result
-}
-
-// indexAll - gets all the planets registered
-func indexAll() []primitive.M {
-	cur, err := collection.Find(context.Background(), bson.D{{}})
 
 	if err != nil {
 		log.Fatal(err)
@@ -183,5 +170,4 @@ func DeleteByID(w http.ResponseWriter, r *http.Request) {
 		alert := []byte("We couldn't find any document with this id: " + docID)
 		w.Write(alert)
 	}
-
 }
