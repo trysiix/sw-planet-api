@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+.planet-container {
+    width: 100%;
+    max-width: 1180px;
+    padding: 0 30px;
+    margin: 32px auto;
+}
+
+.planet-container header {
+    border-radius: 30px;
+    padding: 15px;
+    position: relative;
+    border: 1px solid rgba(117, 111, 110, 0.863);
+    display: flex;
+    align-items: center;
+    box-shadow: 2px 5px 10px rgba(248, 59, 46, 0.438);
+    background-color: #f0f0f5;
+}
+
+.planet-container header span {
+    font-size: 20px;
+    margin-left: 24px;
+    border-bottom: 2px solid #333;
+}
+
+.planet-container header img {
+    height: 64px;
+    margin-left: 10px;
+    margin-right: 50%;
+}
+
+.planet-container header a {
+    width: 260px;
+    margin-left: auto;
+    margin-top: 0;
+}
+
+.planet-container header .button {
+    height: 60px;
+    width: 160px;
+    margin-left: 20px;
+}
+
+.planet-container h1 {
+    margin-top: 50px;
+    margin-bottom: 24px;
+    color: rgb(255, 255, 255);
+    font: 700 40px Roboto, sans-serif;
+    opacity: 0.9;
+}
+
+.planet-container ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 24px;
+    list-style: none;
+}
+
+.planet-container ul li {
+    background: #fff;
+    padding: 5px;
+    border-radius: 50px;
+    position: relative;
+    border: 1px solid rgba(39, 82, 199, 0.808);
+
+    display: grid;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.planet-container ul li button {
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    border: 0;
+}
+
+.planet-container ul li button:hover {
+    opacity: 0.8;
+}
+
+.planet-container ul li strong {
+    padding: 10px;
+    color: #41414d;
+}
+
+.planet-container ul li strong i {
+    margin-left: 10px;
+    color: #e74e4e;
+}
+
+.planet-container ul li p + strong {
+    margin-top: 10px;
+}
+
+.planet-container ul li p {
+    color:#737380;
+    line-height: 21px;
+    font-size: 16px;
+}
