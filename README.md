@@ -71,15 +71,15 @@ About Page:
 
 Register Page:  [http://localhost:3000/register](http://localhost:3000/register) method: POST
 
-> Saves the data provided into mongo db
->   Name: (Planet Name)
->   Weather: (Planet Weather)    
->   Terrain: (Planet Terrain Type) 
+> Saves the data provided into mongo db <br />
+>   Name: (Planet Name) <br />
+>   Weather: (Planet Weather)  <br />
+>   Terrain: (Planet Terrain Type)  <br />
 
 
 Planet List Page:  [http://localhost:3000/planet](http://localhost:3000/planet) method: GET
 
-> This page indexes all the data inside mongo db 
+> This page indexes all the data inside mongo db  <br />
 > The planet modal has a delete button, so its possible to delete any planet displayed
 
 ## License (MIT)
