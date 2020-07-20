@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 
 	"../controllers"
 	"../models"
@@ -62,6 +63,11 @@ func Create(w http.ResponseWriter, r *http.Request) {
 	if len(params.Name) > 0 && len(params.Terrain) > 0 && len(params.Weather) > 0 {
 		fmt.Println(params)
 		data.NumberOfAppearances = controllers.GetNumOfAppearances(params.Name)
+
+		data.Name = strings.ToLower(data.Name)
+		data.Weather = strings.ToLower(data.Weather)
+		data.Terrain = strings.ToLower(data.Terrain)
+
 		_, err := collection.InsertOne(context.Background(), data)
 
 		if err != nil {
@@ -103,6 +109,9 @@ func Index(w http.ResponseWriter, r *http.Request) {
 // getDocument - gets all the planets registered
 func getDocuments(fName string, fValue string) []primitive.M {
 	filter := bson.M{}
+
+	fName = strings.ToLower(fName)
+	fValue = strings.ToLower(fValue)
 
 	if len(fName) > 0 && len(fValue) > 0 {
 		filter = bson.M{fName: fValue}
