@@ -54,15 +54,34 @@ Create:  [http://localhost:3333/api/planet](http://localhost:333/api/planet) met
 Index:  [http://localhost:3333/api/planet](http://localhost:333/api/planet) method: GET
 
 > This route indexes the data inside mongo db 
-> If neither query or id is provided [http://localhost:333/api/planet](http://localhost:333/api/planet) it will index all the data avaible
-> If filter query is provided [http://localhost:333/api/planet?name=PlanetName](http://localhost:333/api/planet?name=PlanetName) it will index all the data that matches the filter
-> If id is provided [http://localhost:333/api/planet/{id}](http://localhost:333/api/planet/{id}) it will index only the data that matches the id
+> If neither query or id is provided [http://localhost:3333/api/planet](http://localhost:3333/api/planet) it will index all the data avaible
+> If filter query is provided [http://localhost:3333/api/planet?name=PlanetName](http://localhost:3333/api/planet?name=PlanetName) it will index all the data that matches the filter
+> If id is provided [http://localhost:3333/api/planet/{id}](http://localhost:3333/api/planet/{id}) it will index only the data that matches the id
 
 
-Delete:  [http://localhost:3333/api/planet/del/{id}](http://localhost:333/api/planet/del/{id}) method: DELETE
+Delete:  [http://localhost:3333/api/planet/del/{id}](http://localhost:3333/api/planet/del/{id}) method: DELETE
 
 > This route only works with id, so its necessary to provide an id to delete the data[http://localhost:333/api/planet/{id}](http://localhost:333/api/planet/{id}) 
 
+## Client Features (Client language: PT-BR )
+
+About Page: 
+
+> Introtudory page, that tells the api features availables and Developer name
+> Contain 2 links, Register Page(Create) and List Planets(Index)
+
+Register Page:  [http://localhost:3000/register](http://localhost:3000/register) method: POST
+
+> Saves the data provided into mongo db
+>   Name: (Planet Name)
+>   Weather: (Planet Weather)    
+>   Terrain: (Planet Terrain Type) 
+
+
+Planet List Page:  [http://localhost:3000/planet](http://localhost:3000/planet) method: GET
+
+> This page indexes all the data inside mongo db 
+> The planet modal has a delete button, so its possible to delete any planet displayed
 
 ## License (MIT)
 
