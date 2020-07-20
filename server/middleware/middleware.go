@@ -90,8 +90,10 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	payload := []primitive.M{}
 	for fName, fValue := range keys {
 		if len(fName) > 0 && len(fValue[0]) > 0 {
-			payload = getDocuments(fName, fValue[0])
+			fName = strings.ToLower(fName)
+			fValue[0] = strings.ToLower(fValue[0])
 
+			payload = getDocuments(fName, fValue[0])
 		} else {
 			alert := []byte("Invalid Filter, Ex: /api/planet?name=Naboo")
 			w.Write(alert)
@@ -109,9 +111,6 @@ func Index(w http.ResponseWriter, r *http.Request) {
 // getDocument - gets all the planets registered
 func getDocuments(fName string, fValue string) []primitive.M {
 	filter := bson.M{}
-
-	fName = strings.ToLower(fName)
-	fValue = strings.ToLower(fValue)
 
 	if len(fName) > 0 && len(fValue) > 0 {
 		filter = bson.M{fName: fValue}
