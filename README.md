@@ -61,7 +61,7 @@ Index:  [http://localhost:3333/api/planet](http://localhost:333/api/planet) meth
 
 Delete:  [http://localhost:3333/api/planet/del/{id}](http://localhost:3333/api/planet/del/{id}) method: DELETE
 
-> This route only works with id, so its necessary to provide an id to delete the data[http://localhost:333/api/planet/{id}](http://localhost:333/api/planet/{id}) 
+> This route only works with id, so its necessary to provide an id to delete the data[http://localhost:3333/api/planet/{id}](http://localhost:3333/api/planet/{id}) 
 
 ## Client Features (Client language: PT-BR )
 
