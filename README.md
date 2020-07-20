@@ -38,7 +38,6 @@ Use [http://localhost:3333](http://localhost:333) to test it with postman or ins
 
 After any changes made, it`s needed to re-run the server.
 
-<img src="https://data.gopher.se/gopher/viking-gopher.svg" align="right" width="30%" height="300">
 
 ## Api Features
 Create:  [http://localhost:3333/api/planet](http://localhost:333/api/planet) method: POST
@@ -84,6 +83,8 @@ Planet List Page:  [http://localhost:3000/planet](http://localhost:3000/planet) 
 > The planet modal has a delete button, so its possible to delete any planet displayed
 
 ## License (MIT)
+
+<img src="https://data.gopher.se/gopher/viking-gopher.svg" align="right" width="30%" height="300">
 
 Copyright (c) 2014-2020 [Peter Hellberg](https://c7.se)
 
