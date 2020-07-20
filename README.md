@@ -40,6 +40,30 @@ After any changes made, it`s needed to re-run the server.
 
 <img src="https://data.gopher.se/gopher/viking-gopher.svg" align="right" width="30%" height="300">
 
+## Api Features
+Create:  [http://localhost:3333/api/planet](http://localhost:333/api/planet) method: POST
+
+> Saves the data provided into mongo db
+> JSON {
+>   name: (Planet Name)
+>   weather: (Planet Weather)    
+>   terrain: (Planet Terrain Type) 
+> } 
+
+
+Index:  [http://localhost:3333/api/planet](http://localhost:333/api/planet) method: GET
+
+> This route indexes the data inside mongo db 
+> If neither query or id is provided [http://localhost:333/api/planet](http://localhost:333/api/planet) it will index all the data avaible
+> If filter query is provided [http://localhost:333/api/planet?name=PlanetName](http://localhost:333/api/planet?name=PlanetName) it will index all the data that matches the filter
+> If id is provided [http://localhost:333/api/planet/{id}](http://localhost:333/api/planet/{id}) it will index only the data that matches the id
+
+
+Delete:  [http://localhost:3333/api/planet/del/{id}](http://localhost:333/api/planet/del/{id}) method: DELETE
+
+> This route only works with id, so its necessary to provide an id to delete the data[http://localhost:333/api/planet/{id}](http://localhost:333/api/planet/{id}) 
+
+
 ## License (MIT)
 
 Copyright (c) 2014-2020 [Peter Hellberg](https://c7.se)
