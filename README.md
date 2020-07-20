@@ -42,20 +42,20 @@ After any changes made, it`s needed to re-run the server.
 ## Api Features
 Create:  [http://localhost:3333/api/planet](http://localhost:333/api/planet) method: POST
 
-> Saves the data provided into mongo db
-> JSON {
->   name: (Planet Name)
->   weather: (Planet Weather)    
->   terrain: (Planet Terrain Type) 
+> Saves the data provided into mongo db <br />
+> JSON { <br />
+>   name: (Planet Name) <br />
+>   weather: (Planet Weather)  <br />
+>   terrain: (Planet Terrain Type) <br />
 > } 
 
 
 Index:  [http://localhost:3333/api/planet](http://localhost:333/api/planet) method: GET
 
-> This route indexes the data inside mongo db 
-> If neither query or id is provided [http://localhost:3333/api/planet](http://localhost:3333/api/planet) it will index all the data avaible
-> If filter query is provided [http://localhost:3333/api/planet?name=PlanetName](http://localhost:3333/api/planet?name=PlanetName) it will index all the data that matches the filter
-> If id is provided [http://localhost:3333/api/planet/{id}](http://localhost:3333/api/planet/{id}) it will index only the data that matches the id
+> This route indexes the data inside mongo db <br />
+> If neither query or id is provided [http://localhost:3333/api/planet](http://localhost:3333/api/planet) it will index all the data avaible <br />
+> If filter query is provided [http://localhost:3333/api/planet?name=PlanetName](http://localhost:3333/api/planet?name=PlanetName) it will index all the data that matches the filter <br />
+> If id is provided [http://localhost:3333/api/planet/{id}](http://localhost:3333/api/planet/{id}) it will index only the data that matches the id <br />
 
 
 Delete:  [http://localhost:3333/api/planet/del/{id}](http://localhost:3333/api/planet/del/{id}) method: DELETE
@@ -66,7 +66,7 @@ Delete:  [http://localhost:3333/api/planet/del/{id}](http://localhost:3333/api/p
 
 About Page: 
 
-> Introtudory page, that tells the api features availables and Developer name
+> Introtudory page, that tells the api features availables and Developer name <br />
 > Contain 2 links, Register Page(Create) and List Planets(Index)
 
 Register Page:  [http://localhost:3000/register](http://localhost:3000/register) method: POST
